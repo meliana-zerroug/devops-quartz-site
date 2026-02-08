@@ -6,8 +6,6 @@ title: Lab 5
 
 ## Objectifs
 
-À l’issue de ce lab, nous sommes capables de :
-
 - Comprendre les principes de l’**intégration continue (CI)** et du **déploiement continu (CD)**.
 - Mettre en place des **tests automatisés** pour une application et une infrastructure.
 - Utiliser **GitHub Actions** pour automatiser des pipelines CI/CD.
