@@ -91,4 +91,84 @@ Pendant le déploiement, on a pu observer une phase de transition où le Load Ba
 En résumé, OpenTofu permet de créer tout un réseau de serveurs sur AWS en lançant juste quelques commandes. C'est beaucoup plus sûr que de tout faire à la main sur la console Amazon, car on écrit tout dans des fichiers : on ne peut donc pas oublier une étape.
 Le plus gros avantage qu' on a  vu, c'est la mise à jour sans coupure. On a pu changer le message de mon application et l'installer sur tous mes serveurs sans que le site ne s'arrête jamais. Les nouveaux serveurs remplacent les anciens automatiquement. Enfin, quand on n'en a plus besoin, on peut tout supprimer proprement en une seule fois, ce qui évite de payer pour rien.
 
-# Partie 3 : 
+# Partie 3 : Kubernetes 
+
+Partie 3 : Kubernetes 
+Dans cette troisième partie, nous allons travailler avec **Docker et Kubernetes** afin de déployer notre application sous forme de conteneur.
+Contrairement aux parties précédentes où nous gérions des serveurs ou des machines virtuelles, ici Kubernetes va s’occuper de gérer des conteneurs.
+L’objectif est de voir comment une application peut être déployée, répliquée et mise à jour automatiquement grâce à un orchestrateur de conteneurs.
+Avant d’utiliser Kubernetes, nous avons commencé par créer une image Docker contenant notre application Node.js.
+Nous avons créé un fichier Dockerfile qui :
+utilise l’image officielle **node:alpine**,
+
+
+copie le fichier **app.js**
+
+
+expose le port **8080**,
+
+
+lance l’application avec la commande node **app.js**.
+
+
+Après avoir créé le fichier Dockerfile, nous avons construit l’image Docker contenant notre application Node.js à l’aide de la commande :
+
+![alt text](image-7.png)
+
+Cette commande permet de générer une image nommée **sample-app** avec le tag **v1**, à partir du contenu du dossier courant.
+
+Une fois l’image construite, nous avons lancé un conteneur à partir de cette image avec :
+
+![alt text](image-8.png)
+
+Afin de vérifier le bon fonctionnement de l’application, nous avons utilisé la commande dans un autre terminal :
+
+![alt text](image-9.png)
+
+Le message **Hello, World!** est bien retourné, ce qui confirme que l’image Docker fonctionne correctement en local avant son déploiement sur Kubernetes.
+
+Etape 2 : Création du cluster Kubernetes
+
+Après avoir validé le bon fonctionnement de notre image Docker en local, nous avons mis en place un **cluster Kubernetes** via Docker Desktop.
+Depuis l’interface Docker, nous avons sélectionné l’option **Create Kubernetes Cluster**, puis choisi le type **kubeadm**, qui permet de créer un cluster local simple composé d’un nœud unique.
+
+![alt text](image-10.png)
+![alt text](image-11.png)
+
+Cette étape confirme que notre environnement Kubernetes local est opérationnel et prêt à accueillir notre application conteneurisée.
+
+On vérifie que localement, kubectl a bien été créé et qu’il est prêt à l’utilisation : 
+
+![alt text](image-12.png)
+
+Le nœud **docker-desktop** apparaît en statut **Ready**, ce qui confirme que le cluster est actif et prêt à recevoir des déploiements.
+
+Nous avons ensuite déployé notre application à l’aide du fichier de configuration :
+
+![alt text](image-13.png)
+
+Nous avons vérifié que les pods sont bien lancés avec :
+![alt text](image-14.png)
+
+Les pods apparaissent en statut **Running**, ce qui indique que les conteneurs fonctionnent correctement.
+
+Afin de rendre l’application accessible, nous avons créé le service Kubernetes :
+
+![alt text](image-15.png)
+
+Le message **Hello, World!** est correctement affiché, ce qui confirme que le déploiement Kubernetes fonctionne.
+
+
+Step 3 : 
+
+Afin de tester la mise à jour de notre application, nous avons modifié le fichier app.js en remplaçant le message "Hello World!" par "DevOps Base!".
+Après cette modification, nous avons reconstruit une nouvelle image Docker et mis à jour le fichier sample-app-deployment.yaml afin d’utiliser la nouvelle version de l’image.
+
+Nous avons ensuite appliqué la mise à jour et nous utilisons la commande suivante pour suivre la progression :
+![alt text](image-16.png)
+Kubernetes a progressivement remplacé les anciens pods par de nouveaux, sans interruption de service.
+Enfin, nous avons vérifié que la mise à jour est bien effective avec :
+
+![alt text](image-17.png)
+
+Le message **DevOps Base!** s’affiche correctement, ce qui confirme que la mise à jour s’est déroulée avec succès.
