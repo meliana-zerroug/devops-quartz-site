@@ -200,3 +200,20 @@ On remarque que l’un des avantages majeurs est la rapidité de mise à jour, n
 
 
 Contrairement à la partie avec Packer qui demandait plusieurs minutes pour remplacer les serveurs ici la mise à jour avec tofu apply a été quasi direct. En utilisant curl sur l’URL de l’API Gateway nous avons pu confirmer que le nouveau message s’affichait immédiatement sans coupure ni délai. 
+
+
+Exercices : 
+
+La configuration via OpenTofu montre qu'il est très simple de basculer d'un environnement à un autre (par exemple de Node.js vers Python). Il suffit de pointer vers un nouveau répertoire source et de modifier la variable runtime, ce qui rend l'infrastructure très polyvalente.
+
+En ajoutant une route comme POST /data dans le module API Gateway, nous avons pu vérifier que le système peut facilement gérer plusieurs types de requêtes sur une même fonction. Cela permet d'imaginer des cas où la fonction traiterait des données envoyées par un utilisateur plutôt que de juste afficher un message fixe.
+
+L'architecture utilisée permet d'intégrer facilement une logique de gestion d'erreurs (codes HTTP 400 ou 500) directement dans le code JavaScript. De plus, comme la fonction s'exécute sur AWS, elle possède aussi la capacité de se connecter à d'autres services comme S3 (stockage) ou DynamoDB (base de données) avec des permissions IAM, sans avoir à configurer de serveurs par exemple.
+
+Bien sûr à la fin on oublie pas de tout nettoyer avec un tofu destroy ! 
+
+Ce lab nous a donc permis de tester les différentes façons de mettre en ligne une application, en passant des serveurs classiques, aux conteneurs puis au Serverless. 
+
+Nous avons compris que le fait de tout écrire dans des fichiers permet d’automatiser le travail et d’éviter les erreurs humaines. 
+
+Ce lab nous montre aussi qu’il n’y a pas une seule “bonne” méthode mais que chaque technologie à ses avantages. Les serveurs offrent un contrôle total, les conteneurs nous permettent d’être beaucoup plus souple et le Serverless nous offre une très grande rapidité pouvoir maîtriser ces outils ça permet de pouvoir choisir la solution la plus adaptée selon les besoins du projet.
