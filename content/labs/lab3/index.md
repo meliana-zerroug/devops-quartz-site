@@ -216,4 +216,4 @@ Ce lab nous a donc permis de tester les différentes façons de mettre en ligne 
 
 Nous avons compris que le fait de tout écrire dans des fichiers permet d’automatiser le travail et d’éviter les erreurs humaines. 
 
-Ce lab nous montre aussi qu’il n’y a pas une seule “bonne” méthode mais que chaque technologie à ses avantages. Les serveurs offrent un contrôle total, les conteneurs nous permettent d’être beaucoup plus souple et le Serverless nous offre une très grande rapidité pouvoir maîtriser ces outils ça permet de pouvoir choisir la solution la plus adaptée selon les besoins du projet.
+Ce lab nous montre aussi qu’il n’y a pas une seule “bonne” méthode mais que chaque technologie à ses avantages. Les serveurs offrent un contrôle total, les conteneurs nous permettent d’être beaucoup plus souple et le Serverless nous offre une très grande rapidité. Pouvoir maîtriser ces outils ça permet de pouvoir choisir la solution la plus adaptée selon les besoins du projet.
