@@ -172,3 +172,31 @@ Enfin, nous avons vérifié que la mise à jour est bien effective avec :
 ![alt text](image-17.png)
 
 Le message **DevOps Base!** s’affiche correctement, ce qui confirme que la mise à jour s’est déroulée avec succès.
+
+# Partie 4 : Severless avec AWS Lambda 
+
+Dans cette partie nous allons explorer une approche un peu différente par rapport aux précédentes. Contrairement au déploiement par instances ou par conteneurs, ici nous allons permettre de déployer du code sans avoir à gérer l’infrastructure complexe. Ici, l’unité de base n’est plus un serveur mais une fonction (AWS Lambda) qui s’exécute uniquement lorsqu’elle est appelée. 
+
+Tout d’abord nous avons commencé par préparer l’environnement de travail et créer le code de la fonction dans un fichier index.js . Le code est assez simple, il exporte un handler qui renvoie juste “Hello World!” avec un code de succès (200). 
+
+Pour le déploiement, nous avons utilisé OpenTofu afin de déclarer la ressource Lambda. 
+Après avoir initialisé le répertoire tofu init nous avons appliqué la configuration via tofu apply. OpenTofu s’est chargé de zipper le code source et de le téléverser sur AWS.
+
+Pour valider le fonctionnement, nous avons utilisé la console AWS Lambda pour effectuer un test manuel. Voici ce qu’on obtient, on a bien le résultat attendu. Ici la fonction existe sur AWS mais n’est pas encore accessible via Internet c’est ce qui va être fait juste après. 
+
+![alt text](image-18.png)
+
+Pour rendre la fonction Lambda accessible depuis n’importe quel navigateur ou terminal nous avons ajouté un module API Gateway. Dans le fichier main.tf on a ensuite lié ce module à notre fonction via son function_arn. On a ensuite configuré deux routes pour tester la flexiblité de l’API, une route GET pour l’accès standard et une route POST/data pour simuler l’envoi de données. Ensuite grâce au fichier outputs.tf, OpenTofu nous a fourni l’URL publique générée par AWS après le tofu apply.
+
+![alt text](image-19.png)
+
+Ensuite on peut tester et on peut voir que ça fonctionne correctement.
+
+![alt text](image-20.png)
+
+On remarque que l’un des avantages majeurs est la rapidité de mise à jour, nous avons modifié le message dans index.js pour passer de Hello World à DevOps Base
+
+![alt text](image-21.png)
+
+
+Contrairement à la partie avec Packer qui demandait plusieurs minutes pour remplacer les serveurs ici la mise à jour avec tofu apply a été quasi direct. En utilisant curl sur l’URL de l’API Gateway nous avons pu confirmer que le nouveau message s’affichait immédiatement sans coupure ni délai. 
