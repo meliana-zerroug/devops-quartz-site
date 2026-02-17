@@ -17,11 +17,11 @@ Ensuite nous avons vérifié que l’automatisation fonctionnait correctement. T
 
 Ensuite nous avons simulé une erreur, nous avons créé une nouvelle branche “test-workflow” pour ne pas casser le projet principal. Puis nous avons modifié le fichier app.js en changeant le texte de réponse par “DevOps Labs!”. En envoyant ce code et en ouvrant une PR le workflow s’est lancé et a échoué comme prévu. En effet cela est normal car le code a changé mais pas le test. 
 
-![alt text](image.png)
+![alt text](./image.png)
 
-Pour réparer le pipeline, nous avons modifié le fichier de test app.test.js pour qu’il accepte le nouveau texte “DevOps Labs!”. Après avoir push la correction, GitHub Actions s’est relancé tout seule et ça a pu repasser au vert. 
+Pour réparer le pipeline, nous avons modifié le fichier de test app.test.js pour qu'il accepte le nouveau texte "DevOps Labs!". Après avoir push la correction, GitHub Actions s'est relancé tout seule et ça a pu repasser au vert. 
 
-![alt text](image-1.png)
+![alt text](./image-1.png)
 
 Cela nous permet de comprendre l’intérêt de l’intégration continue. On voit tout de suite si une modification casse l’application avant même de fusionner le code, cela permet de garder un code toujours fonctionnel sur la branche principale. 
 
@@ -32,7 +32,7 @@ Pour automatiser cette configuration nous avons fait avec OpenTofu. Tout d’abo
 Une fois le code prêt on a initialisé et appliqué la configuration. 
 Après validation, OpenTofu nous a retourné plusieurs identifiants uniques AWS pour nos rôles. Ces ARN sont essentiels car ce sont eux que GitHub utilisera pour  les permissions nécessaires lors des prochains pipelines.
 
-![alt text](image-2.png)
+![alt text](./image-2.png)
 
 Ensuite nous allons maintenant vérifier que le code OpenTofu est valide et qu’il crée bien les ressources attendues sur AWS avant de les déployer. 
 Afin de permettre des tests isolés on a dû modifier le code Terraform. On a ajouté une variable name dans un fichier variables.tf . Cela permet au pipeline de tests de donner un nom unique pour chaque ressource afin d'éviter que deux tests lancés en même temps essaient de créer la même ressource sur AWS. 
@@ -42,11 +42,11 @@ Lors du premier lancement du workflow infra-tests.yml, nous avons rencontré une
 
 Plutôt que d’utiliser la facilité comme IAMFullAccess, nous avons opté pour l’approche du moindre privilège. Nous avons limité les permissions iam:PutRolePolicy et iam:DeleteRolePolicy uniquement pour les ressources dont le nom commence par lambda-sample*
 
-![alt text](image-3.png)
+![alt text](./image-3.png)
 
-Une fois que la sécurité à été ajustée, le workflow GitHub Actions s’est exécuté avec succès. La commande tofu test -verbose permet de déployer temporairement l’infrastructure, de vérifier la validité des configurations et enfin de détruire automatiquement les ressources après validation pour éviter les coûts inutiles. 
+Une fois que la sécurité à été ajustée, le workflow GitHub Actions s'est exécuté avec succès. La commande tofu test -verbose permet de déployer temporairement l'infrastructure, de vérifier la validité des configurations et enfin de détruire automatiquement les ressources après validation pour éviter les coûts inutiles. 
 
-![alt text](image-4.png)
+![alt text](./image-4.png)
 
 ## Partie 2 : Déploiement Continue (CD) : 
 
@@ -60,7 +60,7 @@ Puis pour que GitHub Actions puisse déployer l’application, il faut certaines
 
 On lance ensuite tofu apply dans le dossier ci-cd-permissions puis on récupère les ARN nécessaires : 
 
-![alt text](image-5.png)
+![alt text](./image-5.png)
 
 
 L’étape finale consiste à automatiser totalement le le cycle de l’infrastructure. L’idée est que lorsqu’il y a une modification du code cela déclenche une série d’actions automatiques tout en communiquant directement dans l’interface de GitHub. 
@@ -71,19 +71,19 @@ Pour valider le pipeline nous avons dû changer le message de retour de la fonct
 
 Lorsque l’on a ouvert la pull request, le workflow tofu-plan s’est déclenché. On a pu vérifiéer que OpenTofu prévoyait bien une mise à jour de la fonction Lambda. 
 
-![alt text](image-6.png)
+![alt text](./image-6.png)
 
 Voici les fichiers modifiés : 
 
-![alt text](image-7.png)
+![alt text](./image-7.png)
 
 Après avoir fusionné la PR, le workflow tofu-apply a pris le relais sur la branche main. Ce pipeline a communiqué avec AWS via OIDC pour déployer la nouvelle version du code. Le succès de cette étape confirme que nos rôles IAM sont correctement configurés et que le Remote Backend (S3) a bien été mis à jour. 
 
-![alt text](image-8.png)
+![alt text](./image-8.png)
 
-Enfin nous avons pu récupérer l’URLS publique générée par l’API Gateway. On peut voir que le message s’affiche correctement.
+Enfin nous avons pu récupérer l'URLS publique générée par l'API Gateway. On peut voir que le message s'affiche correctement.
 
-![alt text](image-9.png)
+![alt text](./image-9.png)
 
 Cela nous montre qu’avec un simple git push on a pu tester l’application, vérifier l’impact sur l’infrastructure et mettre à jour le service cloud de manière totalement automatisée et sécurisée.
 
