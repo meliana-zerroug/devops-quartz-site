@@ -33,11 +33,11 @@ devops_base/
 
 L’application Node.js écoute sur un port (8080 par défaut) et renvoie "Hello, World!" à chaque requête.
 
-![alt text](./image.png)
+![alt text](image.png)
 
 Ensuite, on ouvre dans le navigateur l'URL suivante : **http://localhost:8080** et on voit bien : "Hello, World!"
 
-![alt text](./image-1.png)
+![alt text](image-1.png)
 
 
 
@@ -46,15 +46,15 @@ Ensuite, on ouvre dans le navigateur l'URL suivante : **http://localhost:8080** 
 Après avoir créé un compte sur Render.com, on déploie un Web Service en utilisant mon repo : 
 
 Ensuite, on configure l’application comme ci-dessous :
-![alt text](./image-2.png)
+![alt text](image-2.png)
 
 On déploie l'application web : 
-![alt text](./image-3.png)
+![alt text](image-3.png)
 
 On lance dans un navigateur l'URL : https://sample-app-oket.onrender.com/
 
 et on obtient bien "Hello World!"
-![alt text](./image-4.png)
+![alt text](image-4.png)
 
 
 On remarque qu’utiliser **PaaS**  est un moyen très simple et rapide. Il n’est pas non plus nécessaire de gérer le serveur. 
