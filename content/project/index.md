@@ -29,7 +29,6 @@ Contient l’Infrastructure as Code Terraform pour AWS EKS :
 - variables et backend d’état Terraform.
 
 ## Flux technique global
-
 1. Terraform crée l’infrastructure AWS (Jenkins, EKS, IAM, VPC).
 2. Jenkins exécute les pipelines CI/CD.
 3. Le code est analysé (qualité/sécurité), puis conteneurisé.
@@ -86,33 +85,7 @@ Le projet montre une implémentation pratique d’une chaîne DevSecOps cloud-na
 
 Nous pouvons retrouver notre application déployée sur ArgoCD : 
 
-![alt text](project-image.png)
-Cela nous a permis de générer un token et un webhook et de configurer les deux sur Jenkins ensuite.
-
-Après quelques configurations Jenkins, le job et donc la pipeline de TetrisV1 étaient prêts pour le déploiement. Pour déployer la V2, il a suffi d’une modification dans le fichier de manifest “deployement-service.yml” et de la création d’un nouveau job, et le deuxième site était prêt.
-
-## Difficultés
-
-Durant la réalisation du projet, nous avons fait face à des difficultés. Pour ne pas utiliser de services payants nous avons utilisé seulement des instances **t3.small**, mais le tutoriel utilise lui des instances **t3.medium**. Nous avons donc dû contourner ce problème en utilisant 4 instances supplémentaires pour former nos nœuds et nos pods. Pour l’implémentation complète nous avons aussi dû libérer un pod du service de notification jugé non utile pour notre implémentation de Tetris. 
-
-Un autre problème lié à notre volonté de rester dans le service gratuit d’AWS, est un manque de puissance constant dans l'exécution des pipelines. Leur exécution prend souvent plus d’une heure qui pose problème pour réaliser des tests ou effectuer des corrections. Le manque de mémoire causait aussi certaines erreurs lors de l’exécution puisque Jenkins est lourd pour des instances si petites.
-
-Finalement nous avons réussi à contourner ces problèmes pour déployer les deux versions de Tetris.
-
-## Résultat 
-
-Le projet montre une implémentation pratique d’une chaîne DevSecOps cloud-native :
-
 ![alt text](project-image-1.png)
-
-- reproductible,
-- automatisée,
-- orientée sécurité,
-- déployée sur AWS EKS.
-
-Nous pouvons retrouver notre application déployée sur ArgoCD : 
-
-
 
 Nous obtenons le lien pour acceder à [Tetris V1](http://a1b2c8be2b5494a05ae1e8bddbceef33-1899199155.us-east-1.elb.amazonaws.com/).
 
@@ -127,8 +100,6 @@ En cliquant sur le lien, nous arrivons sur la page suivante sur laquelle il est 
 ![alt text](project-image-4.png)
 
 ## Limites actuelles du projet
-
-![alt text](project-image-5.png)
 
 Dans sa forme actuelle, le projet se concentre surtout sur l’automatisation. Cependant il y a tout de même des limites qui sont :
 
