@@ -13,6 +13,3 @@ Bienvenue dans la section des labs
 - [[labs/lab3/|Lab 3]]
 - [[labs/lab4/|Lab 4]]
 - [[labs/lab5/|Lab 5]]
-- [[labs/lab6/|Lab 6]]
-
-## Objectifs
