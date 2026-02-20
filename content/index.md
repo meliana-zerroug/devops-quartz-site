@@ -9,74 +9,77 @@ Cette page présente l’ensemble des réalisations effectuées dans le cadre de
 # Architecture & Outils Utilisés
 ## Cloud Provider
 # Amazon Web Services (AWS)
-EC2
+
+- EC2
 
 
-Security Groups
+- Security Groups
 
 
-IAM
+- IAM
 
 
-AMI
+- AMI
 
 
 ## Infrastructure as Code
-Bash scripting (automatisation simple via AWS CLI)
+
+- Bash scripting (automatisation simple via AWS CLI)
 
 
-Ansible: Configuration management & idempotence
+- Ansible: Configuration management & idempotence
 
 
-Packer : Création d’AMI immuables
+- Packer : Création d’AMI immuables
 
 
-OpenTofu : Provisioning déclaratif
-
-
+- OpenTofu : Provisioning déclaratif
 
 
 ## Application déployée
-Application Node.js simple
+
+- Application Node.js simple
 
 
-Déploiement automatisé sur EC2
+- Déploiement automatisé sur EC2
 
 
-Exposition via HTTP (port 80 / 8080)
+- Exposition via HTTP (port 80 / 8080)
 
 
 # Pipeline DevOps Implémenté
-Authentification sécurisée AWS (IAM + CLI)
+
+- Authentification sécurisée AWS (IAM + CLI)
 
 
-Provisionnement automatique d’instances EC2
+- Provisionnement automatique d’instances EC2
 
 
-Création d’images personnalisées avec Packer
+- Création d’images personnalisées avec Packer
 
 
-Déploiement via OpenTofu (avec modules réutilisables)
+- Déploiement via OpenTofu (avec modules réutilisables)
 
 
-Mise à jour & destruction contrôlée des ressources
+- Mise à jour & destruction contrôlée des ressources
 
 
-Gestion des changements via plan/apply
+- Gestion des changements via plan/apply
 
 
 # Approche DevSecOps
-Gestion des clés IAM
+
+- Gestion des clés IAM
 
 
-Infrastructure versionnée
+- Infrastructure versionnée
 
 
-Idempotence des configurations
+- Idempotence des configurations
 
 
-Séparation modules / environnement live
+- Séparation modules / environnement live
 
 
-Reproductibilité des environnements
+- Reproductibilité des environnements
 
